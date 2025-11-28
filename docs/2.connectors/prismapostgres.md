@@ -70,6 +70,7 @@ Install [`db0`](https://npmjs.com/package/db0) npm package:
 Use the [`postgresql`](/connectors/postgresql) connector with your Prisma Postgres database:
 
 ```js
+import "dotenv/config";
 import { createDatabase } from "db0";
 import postgresql from "db0/connectors/postgresql";
 
@@ -80,4 +81,22 @@ const db = createDatabase(
 );
 ```
 
-Then you should be able to query your Prisma Postgres database.
+Then you should be able to query your Prisma Postgres database:
+
+```typescript
+import "dotenv/config";
+import { createDatabase } from "db0";
+import postgresql from "db0/connectors/postgresql";
+
+const db = createDatabase(
+  postgresql({
+    url: process.env.DATABASE_URL!,
+  }),
+);
+
+async function main() {
+  console.log(await db.sql`SELECT 1`);
+}
+
+main();
+```
